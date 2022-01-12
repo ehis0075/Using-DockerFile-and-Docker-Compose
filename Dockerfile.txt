@@ -1,0 +1,33 @@
+#the base layer of your image(base image), use openjdk image as base image
+FROM openjdk:11
+
+#create a new app directory for my app files ( the folder is inside your container)
+RUN mkdir /app   #when i use run the command only apply to images
+
+#copy the app files from host machine to image filesystem
+COPY out/production/HelloWorld/ /app   #when i use COPY the first argument apply to my host machine and the second arg apply to the image 
+
+#set the directory for executing future commands
+WORKDIR /app
+
+#a command to execute when you start the container from the image, your docker file must contain one CMD or entrypoint instruction specifying the default instruction for your conatiner
+#run main class when the conatiner start
+CMD java Main
+
+
+
+
+on your terminal, to run the dockerfile
+docker build -t container-name:1.0 .
+
+to see list of docker images: docker images
+
+to run your conatiner(it will just run once and terminate): docker run image-name:1.0
+
+to see list of current running container: docker ps
+
+to see list of both running and not running containers: docker ps -a
+
+to see the logs of a container(i.e logs of your app): docker logs container-id
+
+https://www.youtube.com/watch?v=FzwIs2jMESM&list=RDCMUCGp4UBwpTNegd_4nCpuBcow&start_radio=1&t=333s

@@ -1,0 +1,21 @@
+#version that this docker compose file will be using for its file format
+version: "3"
+#define the services that make up the application
+services:
+  app-db: #call this service app-db
+   image:mysql	
+     environment:
+       -MYSQL_ROOT_PASSWORD=password
+       -MYSQL_DATABASE=myDB
+  app:
+   build: . #look for a docker file in the current directory and build the image
+   ports: 
+     - "8081:8080" #port bindings that will make the app available outside of docker
+   depends_on: #declare dependencies on the app-db service, so that your app doesn't come up until the db service has started
+     -app-db
+
+
+
+
+#to run the docker-compose, will create and start the two containers(services)
+->docker-compose up
